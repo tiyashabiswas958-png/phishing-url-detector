@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhishGuard</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background: radial-gradient(circle at top left, #09111f, #060914 60%);
+    color:#fff;
+    min-height:100vh;
+}
+
+header{
+    height:58px;
+    background:#070912;
+    border-bottom:1px solid rgba(0,255,255,.08);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 42px;
+}
+
+.logo{
+    font-size:31px;
+    color:#11e6ff;
+    font-weight:700;
+}
+
+nav a{
+    color:#d0d4e2;
+    text-decoration:none;
+    margin-left:32px;
+    font-size:13px;
+}
+
+.logout{
+    margin-left:24px;
+    padding:7px 16px;
+    background:#5a1f29;
+    border-radius:4px;
+}
+
+.main{
+    width:1280px;
+    margin:38px auto;
+    display:flex;
+    gap:28px;
+}
+
+.card{
+    flex:1;
+    background:#111635;
+    border-radius:16px;
+    padding:28px;
+    position:relative;
+}
+
+.left-card{
+    border:1px solid rgba(0,255,255,.08);
+    box-shadow:0 0 0 1px rgba(0,255,255,.02);
+}
+
+.right-card{
+    border:1px solid rgba(255,0,90,.45);
+}
+
+.title{
+    color:#12e8ff;
+    font-size:34px;
+    font-weight:700;
+    margin-bottom:26px;
+}
+
+.label{
+    color:#8edcf2;
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+.select-box{
+    width:100%;
+    height:52px;
+    background:#0d1025;
+    border:1px solid rgba(0,255,255,.22);
+    border-radius:8px;
+    color:#c7d0ff;
+    padding:0 16px;
+    margin-bottom:22px;
+}
+
+.url-input{
+    width:100%;
+    height:56px;
+    background:#0d1025;
+    border:2px solid #08d9ff;
+    border-radius:8px;
+    padding:0 18px;
+    color:#fff;
+    outline:none;
+    margin-bottom:20px;
+}
+
+.url-input::placeholder{
+    color:#8b95c5;
+}
+
+.scan-btn{
+    width:100%;
+    height:56px;
+    border:none;
+    border-radius:9px;
+    font-size:18px;
+    font-weight:700;
+    cursor:pointer;
+    color:#03131a;
+    background:linear-gradient(90deg,#00d8ff,#00e88f);
+    box-shadow:0 0 14px rgba(0,255,255,.22);
+}
+
+.result-top{
+    text-align:center;
+    margin-top:12px;
+}
+
+.warn{
+    font-size:72px;
+    color:#ffe600;
+    margin-bottom:8px;
+}
+
+.result-title{
+    color:#13e8ff;
+    font-size:34px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.badge{
+    display:inline-block;
+    background:#114463;
+    color:#82d8ff;
+    font-size:12px;
+    padding:7px 14px;
+    border-radius:20px;
+    margin-bottom:28px;
+}
+
+.big-cross{
+    color:#ff553f;
+    font-size:86px;
+    line-height:1;
+    margin-bottom:16px;
+}
+
+.result-text{
+    font-size:22px;
+    color:#d9dff8;
+    margin-bottom:22px;
+}
+
+.scanned-url{
+    width:80%;
+    margin:0 auto 18px auto;
+    background:#0a0d20;
+    padding:14px;
+    border-radius:8px;
+    color:#9ea7d7;
+    font-size:14px;
+}
+
+.scan-time{
+    color:#8b93b8;
+    font-size:14px;
+    margin-bottom:22px;
+}
+
+.warning-btn{
+    display:inline-block;
+    padding:14px 28px;
+    border:1px solid rgba(255,70,70,.5);
+    color:#ff7b7b;
+    border-radius:8px;
+    font-size:14px;
+}
+
+.result-green{
+    color:#00f59a;
+}
+
+.result-red{
+    color:#ff5f5f;
+}
+
+
+.scan-btn{
+    width:100%;
+    height:56px;
+    border:none;
+    border-radius:9px;
+    font-size:18px;
+    font-weight:700;
+    cursor:pointer;
+    color:#03131a;
+    background:linear-gradient(90deg,#00d8ff,#00e88f);
+    box-shadow:0 0 14px rgba(0,255,255,.22);
+}
+
+
+.scan-btn:active{
+    transform: scale(0.97);
+    box-shadow: 0 0 25px #00e8ff, 0 0 40px #00ffae;
+}
+
+.result-animate{
+    animation: fadeSlide 0.6s ease;
+}
+
+@keyframes fadeSlide{
+    from{
+        opacity:0;
+        transform: translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform: translateY(0);
+    }
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+    <div class="logo">PhishGuard</div>
+
+</header>
+
+<div class="main">
+
+    <div class="card left-card">
+        <div class="title">URL Scanner</div>
+
+        <form method="POST">
+            <div class="label">Select ML Model</div>
+            <select class="select-box">
+                <option>Logistic Regression</option>
+                <option>Naive Bayes</option>
+            </select>
+
+            <div class="label">Enter URL to Scan</div>
+            <input class="url-input" type="text" name="url" placeholder="http://example.com" required>
+
+            <button class="scan-btn" type="submit">Analyze URL</button>
+        </form>
+    </div>
+
+    <div class="card right-card">
+        <div class="result-top {% if predict %}result-animate{% endif %}">
+            <div class="warn">⚠</div>
+            <div class="result-title">Scan Result</div>
+            <div class="badge">Model: Logistic Regression</div>
+            <div class="badge">Model: Naive Bayes</div>
+
+            {% if predict %}
+                {% if "Phishing" in predict %}
+                    <div class="big-cross">✕</div>
+                    <div class="result-text result-red">This URL appears to be UNSAFE</div>
+                {% else %}
+                    <div class="big-cross result-green">✔</div>
+                    <div class="result-text result-green">This URL appears to be SAFE</div>
+                {% endif %}
+            {% else %}
+                <div class="big-cross">✕</div>
+                <div class="result-text">No result yet</div>
+            {% endif %}
+
+            {% if request.form.url %}
+                <div class="scanned-url">{{ request.form.url }}</div>
+            {% endif %}
+
+            
+
+            {% if predict and "Phishing" in predict %}
+    <a href="{{ request.form.url }}" target="_blank" class="warning-btn">
+        Proceed with Caution
+    </a>
+{% endif %}
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
